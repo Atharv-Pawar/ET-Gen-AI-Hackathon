@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Access Blocked - Teen Safety Shield</title>
+  <link rel="stylesheet" href="blocked.css">
+</head>
+<body>
+  <div class="container">
+    <div class="error-code">403</div>
+    
+    <div class="shield-icon">🛡️</div>
+    
+    <h1>Access Blocked</h1>
+    
+    <p class="message" id="block-message">
+      This website has been blocked for your protection.
+    </p>
+    
+    <div class="category-badge" id="category-badge">
+      <span id="category-icon">⚠️</span>
+      <span id="category-text">Restricted Content</span>
+    </div>
+    
+    <div class="info-box">
+      <h3>Why am I seeing this?</h3>
+      <p id="reason-text">
+        Teen Safety Shield detected that you are under 18 years old or camera access was denied. 
+        This site contains content that is not appropriate for minors.
+      </p>
+    </div>
+    
+    <div class="alternatives">
+      <h3>🌟 Safe Alternatives</h3>
+      <div class="alt-links">
+        <a href="https://www.khanacademy.org" target="_blank" class="alt-card">
+          <span class="alt-icon">📚</span>
+          <span>Khan Academy</span>
+        </a>
+        <a href="https://www.wikipedia.org" target="_blank" class="alt-card">
+          <span class="alt-icon">🌐</span>
+          <span>Wikipedia</span>
+        </a>
+        <a href="https://www.youtube.com/learning" target="_blank" class="alt-card">
+          <span class="alt-icon">🎬</span>
+          <span>YouTube Learning</span>
+        </a>
+        <a href="https://scratch.mit.edu" target="_blank" class="alt-card">
+          <span class="alt-icon">💻</span>
+          <span>Scratch Coding</span>
+        </a>
+      </div>
+    </div>
+    
+    <div class="actions">
+      <a href="https://www.google.com" class="btn btn-primary">Go to Google</a>
+      <button onclick="history.back()" class="btn btn-secondary">Go Back</button>
+    </div>
+    
+    <div class="footer">
+      <p>🔒 Protected by Teen Safety Shield</p>
+      <p class="small">If you believe this is an error, please contact your parent or guardian.</p>
+    </div>
+  </div>
+  
+  <script>
+    // Parse URL parameters
+    const params = new URLSearchParams(window.location.search);
+    const category = params.get('category');
+    const reason = params.get('reason');
+    
+    const categoryInfo = {
+      adult: { icon: '🔞', text: 'Adult Content', message: 'This site contains adult/explicit content not suitable for minors.' },
+      gambling: { icon: '🎰', text: 'Gambling Site', message: 'Online gambling sites are restricted for users under 18.' },
+      betting: { icon: '🏏', text: 'Betting Platform', message: 'Sports betting and fantasy gaming sites are age-restricted.' },
+      darkweb: { icon: '👤', text: 'Dark Web', message: 'Access to dark web content has been blocked for your safety.' },
+      suspicious: { icon: '⚠️', text: 'Suspicious Content', message: 'This site was flagged as potentially harmful.' }
+    };
+    
+    if (category && categoryInfo[category]) {
+      document.getElementById('category-icon').textContent = categoryInfo[category].icon;
+      document.getElementById('category-text').textContent = categoryInfo[category].text;
+      document.getElementById('block-message').textContent = categoryInfo[category].message;
+    }
+    
+    if (reason === 'camera_blocked') {
+      document.getElementById('reason-text').innerHTML = `
+        <strong>Camera access is required</strong> for age verification. 
+        Without camera access, all restricted sites will remain blocked. 
+        Please enable camera access in your browser settings.
+      `;
+    }
+  </script>
+</body>
+</html>

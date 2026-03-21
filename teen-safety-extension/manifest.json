@@ -1,0 +1,59 @@
+{
+  "manifest_version": 3,
+  "name": "Teen Safety Shield",
+  "version": "1.0.0",
+  "description": "AI-powered browser extension protecting minors from harmful content using real-time face-based age verification",
+  
+  "permissions": [
+    "storage",
+    "tabs",
+    "activeTab",
+    "webNavigation"
+  ],
+  
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  
+  "background": {
+    "service_worker": "background.js"
+  },
+  
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "assets/icon16.png",
+      "48": "assets/icon48.png",
+      "128": "assets/icon128.png"
+    }
+  },
+  
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "blocked/blocked.html",
+        "blocked/blocked.css",
+        "verification/verify.html",
+        "verification/verify.css",
+        "verification/verify.js",
+        "lib/face-api.min.js",
+        "models/*"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  
+  "icons": {
+    "16": "assets/icon16.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
+  }
+}

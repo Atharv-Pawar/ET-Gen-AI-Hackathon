@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teen Safety Shield</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">🛡️</div>
+      <h1>Teen Safety Shield</h1>
+      <p class="tagline">AI-Powered Protection</p>
+    </div>
+    
+    <div class="status-card" id="status-card">
+      <div class="status-indicator" id="status-indicator"></div>
+      <div class="status-info">
+        <span class="status-label" id="status-label">Protection Active</span>
+        <span class="status-detail" id="status-detail">Monitoring for harmful content</span>
+      </div>
+    </div>
+    
+    <div class="toggle-section">
+      <span>Enable Protection</span>
+      <label class="toggle">
+        <input type="checkbox" id="enable-toggle" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+    
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-icon">🚫</span>
+        <span class="stat-value" id="blocked-count">0</span>
+        <span class="stat-label">Sites Blocked</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">✅</span>
+        <span class="stat-value" id="verified-status">Not Verified</span>
+        <span class="stat-label">Age Status</span>
+      </div>
+    </div>
+    
+    <div class="actions">
+      <button class="action-btn" id="reset-btn">
+        <span>🔄</span> Reset Verification
+      </button>
+      <button class="action-btn" id="settings-btn">
+        <span>⚙️</span> Settings
+      </button>
+    </div>
+    
+    <div class="footer">
+      <p>Version 1.0.0 | <a href="#" id="help-link">Help</a></p>
+    </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
