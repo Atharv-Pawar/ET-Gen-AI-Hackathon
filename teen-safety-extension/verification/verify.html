@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Age Verification - Teen Safety Shield</title>
+  <link rel="stylesheet" href="verify.css">
+</head>
+<body>
+  <div class="container">
+
+    <!-- Header -->
+    <div class="header">
+      <div class="shield-icon">🛡️</div>
+      <h1>Age Verification Required</h1>
+      <p class="subtitle">This site contains restricted content. Please verify your age to continue.</p>
+    </div>
+
+    <!-- Main Verification Box -->
+    <div class="verification-box">
+
+      <!-- Status Messages -->
+      <div id="status-message" class="status loading">
+        <div class="loader"></div>
+        <span>Initializing AI models...</span>
+      </div>
+
+      <!-- Progress Steps -->
+      <div class="progress-steps">
+        <div class="step active" id="step-1">
+          <div class="step-number">1</div>
+          <span>Camera</span>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step" id="step-2">
+          <div class="step-number">2</div>
+          <span>Face Detection</span>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step" id="step-3">
+          <div class="step-number">3</div>
+          <span>Liveness</span>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step" id="step-4">
+          <div class="step-number">4</div>
+          <span>Age Check</span>
+        </div>
+      </div>
+
+      <!-- Video Container -->
+      <div class="video-container" id="video-container">
+        <video id="video" autoplay muted playsinline></video>
+        <canvas id="overlay" class="overlay-canvas"></canvas>
+        <div id="face-box" class="face-box hidden"></div>
+
+        <!-- Live Info Overlay -->
+        <div id="live-info" class="live-info hidden">
+          <span id="live-age" class="live-age"></span>
+          <span id="live-gender" class="live-gender"></span>
+        </div>
+      </div>
+
+      <!-- Liveness Status -->
+      <div id="liveness-status" class="liveness-status checking">
+        <span id="liveness-icon">⏳</span>
+        <span id="liveness-text">Checking liveness... Please blink naturally and move slightly</span>
+      </div>
+
+      <!-- Result Container -->
+      <div id="result-container" class="result-container hidden">
+        <div id="result-icon" class="result-icon"></div>
+        <div id="result-text" class="result-text"></div>
+        <div id="result-details" class="result-details"></div>
+        <div id="result-age" class="result-age"></div>
+      </div>
+
+      <!-- Instructions -->
+      <div class="instructions" id="instructions">
+        <h3>📋 Instructions</h3>
+        <ul>
+          <li>Position your face within the camera frame</li>
+          <li>Ensure good lighting on your face</li>
+          <li>Look directly at the camera</li>
+          <li>Blink naturally (required for liveness check)</li>
+          <li>Keep still during age analysis</li>
+        </ul>
+      </div>
+
+      <!-- Buttons -->
+      <div class="button-container">
+        <button id="verify-btn" class="btn btn-primary" disabled>
+          <span class="btn-text">🔍 Verify My Age</span>
+          <span class="btn-loader hidden"></span>
+        </button>
+        <button id="retry-btn" class="btn btn-secondary hidden">
+          🔄 Try Again
+        </button>
+      </div>
+    </div>
+
+    <!-- Privacy Notice -->
+    <div class="privacy-notice">
+      <h4>🔒 Privacy-First Design</h4>
+      <p>All AI processing happens <strong>locally on your device</strong>. No face images or personal data are transmitted to any server. Your privacy is fully protected.</p>
+    </div>
+
+    <!-- Camera Blocked Overlay -->
+    <div id="camera-blocked-overlay" class="camera-blocked-overlay hidden">
+      <div class="camera-blocked-content">
+        <div class="blocked-icon">🚫📷</div>
+        <h2>Camera Access Required</h2>
+        <p>Age verification requires camera access to protect minors from harmful content.</p>
+        <p class="warning">Without camera access, <strong>ALL restricted websites will be blocked</strong> on this browser.</p>
+        <div class="camera-blocked-actions">
+          <button id="enable-camera-btn" class="btn btn-primary">📷 Enable Camera</button>
+          <button id="go-back-btn" class="btn btn-secondary">← Go Back</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Load Scripts in Order -->
+  <script src="../lib/face-api.min.js"></script>
+  <script src="liveness.js"></script>
+  <script src="ageEstimator.js"></script>
+  <script src="decisionEngine.js"></script>
+  <script src="verify.js"></script>
+</body>
+</html>

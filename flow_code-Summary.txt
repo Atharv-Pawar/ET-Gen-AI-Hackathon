@@ -1,0 +1,67 @@
+USER BROWSES INTERNET
+    │
+    ▼
+background.js: chrome.webNavigation.onBeforeNavigate()
+    │
+    ▼
+background.js: classifyContent(url)
+    ├── Checks whitelist → Allow
+    ├── Checks blocklist domains → Restricted
+    ├── Checks URL patterns (NLP) → Restricted
+    └── Checks keywords → Restricted
+    │
+    ├── NOT Restricted → Allow (do nothing)
+    │
+    └── RESTRICTED → getAccessDecision()
+        ├── Extension disabled → Allow
+        ├── Camera blocked → Block ALL
+        ├── Valid verification → Allow
+        └── Need verification → Redirect to verify.html
+            │
+            ▼
+        verify.js: init()
+            │
+            ▼
+        CAMERA ACCESS CHECK
+            ├── NO → showCameraBlocked() → background.js: CAMERA_BLOCKED
+            │       → BLOCK ALL RESTRICTED SITES
+            │
+            └── YES → loadModels() → startCamera()
+                │
+                ▼
+            FACE DETECTION (face-api.js TinyFace)
+            startFaceDetectionLoop()
+                │
+                ▼
+            LIVENESS DETECTION (liveness.js)
+            livenessDetector.processFrame()
+                ├── Blink Detection (EAR)
+                └── Movement Detection (nose tracking)
+                │
+                ├── NOT LIVE → Keep checking
+                └── LIVE → Enable "Verify" button
+                    │
+                    ▼
+                AGE ESTIMATION (ageEstimator.js)
+                ageEstimator.estimate()
+                    ├── 10-frame sampling
+                    ├── Outlier removal (IQR)
+                    ├── Confidence scoring
+                    └── Returns age result
+                    │
+                    ▼
+                DECISION ENGINE (decisionEngine.js)
+                decisionEngine.decide()
+                    ├── Age ≥ 20 → ADULT_CONFIRMED → ALLOW
+                    ├── Age ≤ 15 → MINOR_CONFIRMED → BLOCK
+                    └── Age 16-19:
+                        ├── High Conf + Age≥18 → ADULT_PROBABLE → ALLOW
+                        └── Low Conf → MINOR_ASSUMED → BLOCK
+                    │
+                    ▼
+                verify.js: sendResultToBackground()
+                    │
+                    ▼
+                background.js: handleVerificationResult()
+                    ├── ALLOW → Redirect to original URL
+                    └── BLOCK → Redirect to blocked.html
